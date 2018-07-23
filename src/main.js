@@ -14,14 +14,22 @@ import store from './store'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+import { default as request } from './utils/request'
+import { hasPermission } from './utils/hasPermission'
 
 Vue.use(ElementUI, { locale })
 
+// 生产环境时自动设置为 false 以阻止 web 在启动时生成生产提示
 Vue.config.productionTip = false
+
+// 全局的常量
+Vue.prototype.request = request
+Vue.prototype.hasPermission = hasPermission
 
 new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  template: '<App/>',
+  components: { App }
 })
