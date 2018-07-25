@@ -14,22 +14,22 @@ import store from './store'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-import { default as request } from './utils/request'
-import { hasPermission } from './utils/hasPermission'
+import {default as request} from './utils/request'
+import {hasPermission} from './utils/hasPermission'
 
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, {locale, size: 'medium'});
 
 // 生产环境时自动设置为 false 以阻止 web 在启动时生成生产提示
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // 全局的常量
-Vue.prototype.request = request
-Vue.prototype.hasPermission = hasPermission
+Vue.prototype.request = request;
+Vue.prototype.hasPermission = hasPermission;
 
 new Vue({
   el: '#app',
   router,
   store,
   template: '<App/>',
-  components: { App }
-})
+  components: {App}
+});

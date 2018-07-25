@@ -65,7 +65,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'index',
       name: 'User',
-      component: () => import('@views/user/index'),
+      component: () => import('@/views/user/index'),
       meta: { permission: ['user:list'] }
     }]
   },
@@ -77,7 +77,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'index',
       name: 'UserCenter',
-      component: () => import('@views/userCenter/index')
+      component: () => import('@/views/userCenter/index')
     }]
   }
 ]
