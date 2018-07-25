@@ -34,6 +34,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
+      'vue$': 'vue/dist/vue.esm.js', //vue的构建方式这里用基于ES 模块版本构建用于现代打包器（例如 webpack 2 或 rollup 等）中。 https://vuefe.cn/v2/guide/installation.html
       '@': resolve('src')
     }
   },

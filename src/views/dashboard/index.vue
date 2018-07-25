@@ -5,29 +5,30 @@
       <ol>
         <li v-for="code in permissionCodeList" :key="code">{{code}}</li>
       </ol>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
 
-export default {
-  computed: {
-    ...mapGetters([
-      'permissionCodeList'
-    ])
+  export default {
+    computed: {
+      ...mapGetters([
+        'permissionCodeList'
+      ])
+    }
   }
-}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
+  .dashboard {
+    &-container {
+      margin: 30px;
+    }
+    &-text {
+      font-size: 30px;
+      line-height: 46px;
+    }
   }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
 </style>
