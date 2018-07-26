@@ -3,7 +3,7 @@ import store from './store'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { Message } from 'element-ui'
-import { getToken } from '@/utils/auth' // 验权
+import { getToken } from '@/utils/token' // 验权
 
 const whiteList = ['/login'] // 白名单,不需要登录的路由
 
