@@ -1,39 +1,62 @@
-import { login, logout, getInfo } from '@/api/login'
+import { login, logout, info } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/token'
 
 const user = {
   state: {
     token: getToken(),
-    name: '',
-    avatar: '',
-    roles: []
+    userId: -1,
+    email: null,
+    username: null,
+    avatar: null,
+    loginTime: -1,
+    registerTime: -1,
+    resume: null,
+    roleName: null,
+    permissionCodeList: []
   },
 
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_NAME: (state, name) => {
-      state.name = name
+    SET_USER: (state, user) => {
+      state.userId = user.id
+      state.email = user.email
+      state.username = user.username
+      state.avatar = user.avatar
+      state.loginTime = user.loginTime
+      state.registerTime = user.registerTime
+      state.resume = user.resume
+      state.roleName = user.roleName
+      state.permissionCodeList = user.permissionCodeList
     },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
+    RESET_USER: (state) => {
+      state.token = null
+      state.userId = -1
+      state.email = null
+      state.username = null
+      state.avatar = null
+      state.loginTime = -1
+      state.registerTime = -1
+      state.resume = null
+      state.roleName = null
+      state.permissionCodeList = []
     }
   },
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+    Login({ commit }, loginForm) {
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
-          resolve()
+        login(loginForm).then(response => {
+          if (response.code === 200) {
+            // cookie中保存token
+            setToken(response.data)
+            // vuex中保存token
+            commit('SET_TOKEN', response.data)
+          }
+          // 传递给/login/index.web : store.dispatch('Login').then(data)
+          resolve(response)
         }).catch(error => {
           reject(error)
         })
@@ -41,17 +64,11 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    Info({ commit }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
-          const data = response.data
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
+        info().then(response => {
+          // 储存用户信息
+          commit('SET_USER', response.data)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -60,11 +77,11 @@ const user = {
     },
 
     // 登出
-    LogOut({ commit, state }) {
+    Logout({ commit }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
+        logout().then(() => {
+          // 清除token等相关角色信息
+          commit('RESET_USER')
           removeToken()
           resolve()
         }).catch(error => {
@@ -74,9 +91,9 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut({ commit }) {
+    FedLogout({ commit }) {
       return new Promise(resolve => {
-        commit('SET_TOKEN', '')
+        commit('RESET_USER')
         removeToken()
         resolve()
       })
@@ -85,3 +102,4 @@ const user = {
 }
 
 export default user
+
