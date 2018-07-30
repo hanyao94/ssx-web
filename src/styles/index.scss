@@ -1,28 +1,14 @@
-@import './variables.scss';
 @import './mixin.scss';
-@import './transition.scss';
-@import './element-ui.scss';
-@import './sidebar.scss';
 
 body {
-  height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
-label {
-  font-weight: 700;
-}
-
 html {
-  height: 100%;
   box-sizing: border-box;
-}
-
-#app{
-  height: 100%;
 }
 
 *,
@@ -30,19 +16,6 @@ html {
 *:after {
   box-sizing: inherit;
 }
-
-a,
-a:focus,
-a:hover {
-  cursor: pointer;
-  color: inherit;
-  outline: none;
-  text-decoration: none;
-}
-
-div:focus{
-  outline: none;
- }
 
 a:focus,
 a:active {
@@ -57,7 +30,7 @@ a:hover {
   text-decoration: none;
 }
 
-.clearfix {
+.clearFix {
   &:after {
     visibility: hidden;
     display: block;
@@ -68,8 +41,19 @@ a:hover {
   }
 }
 
+//web router transition css
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .2s ease
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
 //main-container全局样式
-.app-main{
+.app-main {
   min-height: 100%
 }
 
@@ -84,3 +68,4 @@ a:hover {
   fill: currentColor;
   overflow: hidden;
 }
+
