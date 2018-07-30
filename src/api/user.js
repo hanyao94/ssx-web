@@ -26,7 +26,7 @@ export function update(userForm) {
 
 export function remove(userId) {
   return request({
-    url: `/user/${userId}`,
+    url: '/user/' + userId,
     method: 'delete'
   })
 }
@@ -44,6 +44,13 @@ export function login(userForm) {
     url: '/user/login',
     method: 'post',
     data: userForm
+  })
+}
+
+export function info() {
+  return request({
+    url: '/user/info',
+    method: 'get'
   })
 }
 
